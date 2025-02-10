@@ -1,7 +1,7 @@
 const KEY = "Uz4OHLXsoKO4P0fCMEaLEJVmNFuzqdq0cc7qNu6G5RfgQESxk1xebNIr";
 import Response from "../types/image";
 import Image from "next/image";
-
+import { Pagination } from "@/components/ui/pagination";
 
 export default async function Home() {
   const response = await fetch("https://api.pexels.com/v1/curated?", {
@@ -34,10 +34,11 @@ export default async function Home() {
             <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/100 to-transparent opacity-0 group-hover:opacity-100 z-40 transition-opacity duration-300 text-white p-4 ">
             <h1>{item.photographer}</h1>
             <p className="text-[12px]">{item.alt}</p>
-            <p></p>
+            
             </div>
           </div>
         ))}
+      <Pagination />
       </div>
     </div>
   );
