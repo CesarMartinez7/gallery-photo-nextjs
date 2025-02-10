@@ -1,9 +1,21 @@
 const KEY = "Uz4OHLXsoKO4P0fCMEaLEJVmNFuzqdq0cc7qNu6G5RfgQESxk1xebNIr";
 import Response from "../types/image";
 import Image from "next/image";
-import { Pagination } from "@/components/ui/pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+ 
+
+
 
 export default async function Home() {
+
   const response = await fetch("https://api.pexels.com/v1/curated?", {
     method: "GET",
     headers: {
@@ -15,7 +27,8 @@ export default async function Home() {
   console.log(data.photos.length);
 
   return (
-    <div className="flex justify-center w-full h-full">
+    <div className="flex justify-center w-full h-full items-center flex-col ">
+      <h1>sdfsdf</h1>
       <div className="lg:w-[70vw] grid-cols-galeria ">
         {data.photos.map((item) => (
           <div
@@ -34,12 +47,37 @@ export default async function Home() {
             <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/100 to-transparent opacity-0 group-hover:opacity-100 z-40 transition-opacity duration-300 text-white p-4 ">
             <h1>{item.photographer}</h1>
             <p className="text-[12px]">{item.alt}</p>
-            
             </div>
           </div>
         ))}
-      <Pagination />
+        
       </div>
+      <div className="flex justify-center">
+      <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+        </div>
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            <h1 className="text-zinc-400">Menu</h1>
+           
           </div>
         </nav>
       </header>

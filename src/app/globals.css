@@ -7,8 +7,15 @@
 html{
   background-color: #09090B;
   color: #27272A;
+  
 }
 
+
+:root{
+  --gray: #27272A
+  border: var(--gray);
+  color: #27272A;
+}
 
 
 .grid-cols-galeria{
