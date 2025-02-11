@@ -1,7 +1,8 @@
-
+"use client"
 
 import { Input } from "./input";
 import { Icon } from "@iconify/react";
+import { useRef } from "react";
 
 import {
   DropdownMenu,
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
+  const inputRef = useRef<HTMLInputElement>(null)
   return (
     <div className="w-full flex justify-center top-4 sticky z-30">
       <header
@@ -30,12 +32,19 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className=" items-center px-4 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 border border-gris  bg-zinc-700`">
                   <DropdownMenuLabel className="text-zinc-400 ">
-                    <Input className="border-gris" />
+                    <form onSubmit={(e) => {
+                      e.preventDefault()
+                      if(inputRef.current && inputRef.current instanceof HTMLInputElement ){
+                        window.alert("dsfsdf")
+                        console.log(inputRef.current?.value)
+                      }
+                    }}>
+                    <Input className="border-gris" ref={inputRef} />
+                    </form>
                   </DropdownMenuLabel>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-           
           </div>
         </nav>
       </header>
