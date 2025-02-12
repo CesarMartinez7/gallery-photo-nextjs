@@ -238,7 +238,7 @@ const Particles: React.FC<ParticlesProps> = ({
   return (
     <div
       ref={containerRef}
-      className={` w-full h-full ${className}`}
+      className={` absolute w-full h-full ${className}`}
     />
   );
 };
