@@ -20,12 +20,10 @@ export default function Home() {
   const divRef = useRef<HTMLDivElement>(null);
   const [state, dispatch] = useReducer(reducer, { count: 1 });
 
-  // Construye la URL con la página actual
   const url = `https://api.pexels.com/v1/curated?page=${state.count}&per_page=40`;
 
-  // Usa SWR para hacer el fetch y cachear la respuesta
   const { data, error, isValidating } = useSWR<Response>(url, fetcher, {
-    revalidateOnFocus: false, // evita revalidar al cambiar de pestaña, por ejemplo
+    revalidateOnFocus: false, 
   });
 
   return (
