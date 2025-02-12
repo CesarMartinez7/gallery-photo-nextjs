@@ -18,6 +18,12 @@ html{
 }
 
 
+body{
+  display: grid;
+  min-height: 100dvb;
+  grid-template-rows: auto 1fr auto;
+}
+
 .grid-cols-galeria{
   columns: 5 250px;
   column-gap: 20px;
