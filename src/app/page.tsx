@@ -5,6 +5,7 @@ import { useReducer, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import reducer, { ActionReducer } from "@/store/useIncrement";
 import Response from "../types/image";
+import Particles from "@/components/ui/particles";
 
 const KEY =
   process.env.API_KEY ??
@@ -18,7 +19,6 @@ const fetcher = (url: string) =>
     },
   }).then((res) => res.json());
 
-  
 function SkeletonCard() {
   return (
     <div className="grid-item mx-4 duration-300 relative overflow-hidden shadow-lg group rounded-2xl z-10 animate-pulse">
@@ -34,28 +34,26 @@ function SkeletonCard() {
 export default function Home() {
   const divRef = useRef<HTMLDivElement>(null);
   const [state, dispatch] = useReducer(reducer, { count: 1 });
-  const [perPage] = useState<number>(40)
+  const [perPage] = useState<number>(40);
   const url = `https://api.pexels.com/v1/curated?page=${state.count}&per_page=${perPage}`;
 
   const { data, error, isValidating } = useSWR<Response>(url, fetcher, {
     revalidateOnFocus: false,
   });
 
-
   return (
-    <div className="flex justify-center w-full h-full items-center flex-col">
+    <div className="relative flex justify-center w-full h-fit items-center flex-col">
+      <Particles className="absolute w-full  z-[-1]" />
       <h1 className="text-2xl mt-8">Página: {state.count}</h1>
 
       {error && <p>Error al cargar las imágenes.</p>}
 
       <div className="lg:w-[70vw] grid-cols-galeria" ref={divRef}>
         {(!data && isValidating)
-          ?
-            Array.from({ length: perPage }, (_, i) => (
+          ? Array.from({ length: perPage }, (_, i) => (
               <SkeletonCard key={i} />
             ))
-          :
-            data?.photos.map((item) => (
+          : data?.photos.map((item) => (
               <div
                 key={item.id}
                 className="grid-item mx-4 duration-300 relative overflow-hidden shadow-lg group rounded-2xl z-10"
