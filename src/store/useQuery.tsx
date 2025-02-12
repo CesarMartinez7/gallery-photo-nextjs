@@ -1,6 +1,6 @@
-import { create } from "zustand";
+// import { create } from "zustand";
 
-const useQuery = create((set) => ({
-    query: ""
-    inc
-}) )
+// const useQuery = create((set) => ({
+//     query: ""
+//     inc
+// }) )
