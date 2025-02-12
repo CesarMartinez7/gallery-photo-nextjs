@@ -2,7 +2,8 @@
 
 import { Input } from "./input";
 import { Icon } from "@iconify/react";
-import { useRef } from "react";
+import {  useRef } from "react";
+import { useQuery } from "@/store/useQuery";
 
 import {
   DropdownMenu,
@@ -13,6 +14,8 @@ import {
 
 export default function Navbar() {
   const inputRef = useRef<HTMLInputElement>(null)
+  const query = useQuery((state) => state.query)
+  const changeQuery = useQuery((state) => state.change)
   return (
     <div className="w-full flex justify-center top-4 sticky z-30">
       <header
@@ -35,11 +38,10 @@ export default function Navbar() {
                     <form onSubmit={(e) => {
                       e.preventDefault()
                       if(inputRef.current && inputRef.current instanceof HTMLInputElement ){
-                        window.alert("dsfsdf")
-                        console.log(inputRef.current?.value)
+                        changeQuery(inputRef.current.value)
                       }
                     }}>
-                    <Input className="border-gris" ref={inputRef} />
+                    <Input className="border-gris" ref={inputRef} placeholder={query} />
                     </form>
                   </DropdownMenuLabel>
                 </DropdownMenuContent>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import reducer, { ActionReducer } from "@/store/useIncrement";
 import Response from "../types/image";
 import Particles from "@/components/ui/particles";
+import { useQuery } from "@/store/useQuery";
 
 const KEY =
   process.env.API_KEY ??
@@ -33,11 +34,12 @@ function SkeletonCard() {
 
 export default function Home() {
   const divRef = useRef<HTMLDivElement>(null);
+  const query = useQuery((state) => state.query);
   const [state, dispatch] = useReducer(reducer, { count: 1 });
   const [perPage] = useState<number>(40);
-  const url = `https://api.pexels.com/v1/curated?page=${state.count}&per_page=${perPage}`;
+  const ENDPOINT = `https://api.pexels.com/v1/search?query=${query.length === 0 ? "Naturaleza" : query}&per_page=${perPage}&page=${state.count}`;
 
-  const { data, error, isValidating } = useSWR<Response>(url, fetcher, {
+  const { data, error, isValidating } = useSWR<Response>(ENDPOINT, fetcher, {
     revalidateOnFocus: false,
   });
 
@@ -49,10 +51,8 @@ export default function Home() {
       {error && <p>Error al cargar las imágenes.</p>}
 
       <div className="lg:w-[70vw] grid-cols-galeria" ref={divRef}>
-        {(!data && isValidating)
-          ? Array.from({ length: perPage }, (_, i) => (
-              <SkeletonCard key={i} />
-            ))
+        {!data && isValidating
+          ? Array.from({ length: perPage }, (_, i) => <SkeletonCard key={i} />)
           : data?.photos.map((item) => (
               <div
                 key={item.id}

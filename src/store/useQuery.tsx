@@ -1,6 +1,17 @@
-// import { create } from "zustand";
+// store/useStore.ts
+import { create } from 'zustand'
 
-// const useQuery = create((set) => ({
-//     query: ""
-//     inc
-// }) )
+
+type Estado = {
+  query: string
+}
+
+
+interface Actions {
+  change: (query: Estado["query"]) => void 
+}
+
+export const useQuery = create<Estado & Actions>()((set) => ({
+  query: "",
+  change: (query) => set(() => ({query: query}))
+}) )
