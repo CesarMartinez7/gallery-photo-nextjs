@@ -29,7 +29,7 @@ export default function Home() {
   const divRef = useRef<HTMLDivElement>(null);
   const query = useQuery((state) => state.query);
   const [page, setPage] = useState(1);
-  const [perPage] = useState(40);
+  const [perPage] = useState<number>(20);
   const [data, setData] = useState<Response | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -77,6 +77,7 @@ export default function Home() {
                 className="grid-item mx-4 duration-300 relative overflow-hidden shadow-lg group rounded-2xl z-10"
               >
                 <Image
+                  priority
                   src={item.src.original}
                   alt={item.alt}
                   title={item.alt}
