@@ -52,7 +52,7 @@ export default function Home() {
         const result: Response = await res.json();
         setData(result);
       } catch (err) {
-        setError("Error al cargar las imágenes");
+        setError(`Error al cargar las imágenes ${err}`);
       } finally {
         setLoading(false);
       }
@@ -76,7 +76,7 @@ export default function Home() {
                 key={item.id}
                 className="grid-item mx-4 duration-300 relative overflow-hidden shadow-lg group rounded-2xl z-10"
               >
-                <img
+                <Image
                   src={item.src.original}
                   alt={item.alt}
                   title={item.alt}
