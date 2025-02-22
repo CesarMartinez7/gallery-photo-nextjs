@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
 import { Input } from "./input";
 import { Icon } from "@iconify/react";
-import {  useRef } from "react";
+import { useRef } from "react";
 import { useQuery } from "@/store/useQuery";
 
 import {
@@ -13,13 +13,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const query = useQuery((state) => state.query)
-  const changeQuery = useQuery((state) => state.change)
+  const inputRef = useRef<HTMLInputElement>(null);
+  const query = useQuery((state) => state.query);
+  const setPage = useQuery((state) => state.increment)
+  const changeQuery = useQuery((state) => state.change);
   return (
     <div className="w-full flex justify-center top-4 sticky z-30">
       <header
-        className={`h-12 items-center px-4 rounded-2xl w-[90vw] lg:w-[80vw] bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 border border-gris  bg-zinc-700`}
+        className={`h-12 items-center px-4 rounded-2xl w-[90vw] lg:w-[72vw] bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 border border-gris  bg-zinc-800`}
       >
         <nav className="flex justify-between h-full items-center">
           <div>
@@ -35,13 +36,23 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className=" items-center px-4 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 border border-gris  bg-zinc-700`">
                   <DropdownMenuLabel className="text-zinc-400 ">
-                    <form onSubmit={(e) => {
-                      e.preventDefault()
-                      if(inputRef.current && inputRef.current instanceof HTMLInputElement ){
-                        changeQuery(inputRef.current.value)
-                      }
-                    }}>
-                    <Input className="border-gris" ref={inputRef} placeholder={query} />
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (
+                          inputRef.current &&
+                          inputRef.current instanceof HTMLInputElement
+                        ) {
+                          changeQuery(inputRef.current.value);
+                          setPage(1)
+                        }
+                      }}
+                    >
+                      <Input
+                        className="border-gris"
+                        ref={inputRef}
+                        placeholder={query}
+                      />
                     </form>
                   </DropdownMenuLabel>
                 </DropdownMenuContent>
