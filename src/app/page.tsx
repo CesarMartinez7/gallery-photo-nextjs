@@ -7,7 +7,10 @@ import Response from "../types/image";
 import { Suspense } from "react";
 import SkeletonCard from "@/components/ui/skeleton";
 
-const API_KEY = process.env.API_KEY
+const API_KEY: string = process.env.NEXT_PUBLIC_API_KEY
+  ? process.env.NEXT_PUBLIC_API_KEY
+  : "nohayapi";
+
 export default function Home() {
   const divRef = useRef<HTMLDivElement>(null);
   const query = useQuery((state) => state.query);
